@@ -102,7 +102,7 @@ client.on('interactionCreate', async interaction => {
 
       // 💎 embed (clean + controlled)
       const embed = new EmbedBuilder()
-        .setTitle("💸 Payment Selected")
+        .setTitle("💸 Lucky You!")
         .setDescription("Yummy! You owe...")
         .addFields(
           { name: "Amount", value: `**${result}**`, inline: true },
