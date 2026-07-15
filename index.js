@@ -12,16 +12,16 @@ const client = new Client({
   intents: [GatewayIntentBits.Guilds],
 });
 
-// 🎡 wheel configs (no links now, just ranges)
+
+  // 🎡 wheel configs
 const wheels = {
-  lowstakes: {
-    min: 10,
-    max: 100
-  },
-  highstakes: {
-    min: 100,
-    max: 200
-  }
+  lowstakes: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+
+  highstakes: [100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200],
+
+  lowangel: [11, 22, 33, 44, 55, 66, 77, 88, 99],
+
+  highangel: [111, 222, 333, 444, 555]
 };
 
 // 🧠 memory (cooldown + logs)
@@ -40,9 +40,11 @@ const commands = [
         .setDescription('Choose your fate')
         .setRequired(true)
         .addChoices(
-          { name: 'Low Stakes', value: 'lowstakes' },
-          { name: 'High Stakes', value: 'highstakes' },
-        )
+  { name: 'Low Stakes', value: 'lowstakes' },
+  { name: 'High Stakes', value: 'highstakes' },
+  { name: 'Low Angel', value: 'lowangel' },
+  { name: 'High Angel', value: 'highangel' }
+)
     )
 ].map(command => command.toJSON());
 
@@ -81,10 +83,9 @@ client.on('interactionCreate', async interaction => {
     const type = interaction.options.getString('type');
     const wheel = wheels[type];
 
-    // 🎲 random multiple of 10
-    const steps = (wheel.max - wheel.min) / 10;
-    const randomStep = Math.floor(Math.random() * (steps + 1));
-    const amount = wheel.min + (randomStep * 10);
+    
+// 🎲 random amount from selected wheel
+const amount = wheel[Math.floor(Math.random() * wheel.length)];
 
     const result = `$${amount}`;
 
@@ -120,10 +121,9 @@ client.on('interactionCreate', async interaction => {
   }
 });
 // 🔍 shows when bot is ready
-client.once('clientready', () => {
+client.once('ready', () => {
   console.log(`✅ Bot is online as ${client.user.tag}`);
 });
-
 // 💥 catches errors you’d normally never see
 process.on('unhandledRejection', error => {
   console.error('❌ Unhandled promise rejection:', error);
