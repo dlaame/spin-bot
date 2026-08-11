@@ -40,7 +40,7 @@ const commands = [
         .addChoices(
   { name: 'Low Stakes', value: 'lowstakes' },
   { name: 'High Stakes', value: 'highstakes' },
-  { name: 'Angel', value: 'highangel' }
+  { name: 'Angel', value: 'angel' }
 )
     )
 ].map(command => command.toJSON());
