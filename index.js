@@ -49,19 +49,26 @@ const commands = [
 const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_TOKEN);
 
 (async () => {
-  try {
-    await rest.put(
-      Routes.applicationGuildCommands(
-        process.env.CLIENT_ID,
-        '1493034578867261523'
-      ),
-      { body: commands }
-    );
+    try {
+        // Remove old global /spin command
+        await rest.put(
+            Routes.applicationCommands(process.env.CLIENT_ID),
+            { body: [] }
+        );
 
-    console.log('✅ /spin registered to the server');
-  } catch (error) {
-    console.error('❌ Failed to register /spin:', error);
-  }
+        // Register /spin to this server
+        await rest.put(
+            Routes.applicationGuildCommands(
+                process.env.CLIENT_ID,
+                '1493034578867261523'
+            ),
+            { body: commands }
+        );
+
+        console.log('✅ /spin registered to the server');
+    } catch (error) {
+        console.error('❌ Failed to register /spin:', error);
+    }
 })();
 
 // 🎯 interaction logic
