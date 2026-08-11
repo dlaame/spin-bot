@@ -15,13 +15,11 @@ const client = new Client({
 
   // 🎡 wheel configs
 const wheels = {
-  lowstakes: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100],
+  lowstakes: [10, 20, 30, 40, 50],
 
-  highstakes: [100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200],
+  highstakes: [100, 110, 120, 130, 140, 150],
 
-  lowangel: [11, 22, 33, 44, 55, 66, 77, 88, 99],
-
-  highangel: [111, 222, 333, 444, 555]
+  angel: [111, 222, 333, 444, 555]
 };
 
 // 🧠 memory (cooldown + logs)
@@ -42,8 +40,7 @@ const commands = [
         .addChoices(
   { name: 'Low Stakes', value: 'lowstakes' },
   { name: 'High Stakes', value: 'highstakes' },
-  { name: 'Low Angel', value: 'lowangel' },
-  { name: 'High Angel', value: 'highangel' }
+  { name: 'Angel', value: 'highangel' }
 )
     )
 ].map(command => command.toJSON());
